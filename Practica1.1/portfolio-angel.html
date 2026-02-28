@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angel Dominguez | Ingeniero en Sistemas</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0d0d14;
+      color: #e8e8f0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: Georgia, serif; }
+
+    .blob {
+      position: fixed; border-radius: 50%;
+      pointer-events: none; z-index: 0;
+      filter: blur(80px); opacity: 0.15;
+    }
+    .blob-1 { width: 600px; height: 600px; top: -150px; left: -150px; background: #6c63ff; }
+    .blob-2 { width: 400px; height: 400px; bottom: -100px; right: -100px; background: #ff6584; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 6%;
+      background: rgba(13,13,20,0.95);
+      border-bottom: 1px solid rgba(108,99,255,0.2);
+    }
+    .nav-logo { font-family: Georgia, serif; font-size: 1.25rem; font-weight: bold; color: #fff; }
+    .nav-logo span { color: #6c63ff; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: #9999bb; text-decoration: none; font-size: .87rem; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: #6c63ff !important; color: #fff !important; padding: .4rem 1.2rem; border-radius: 50px; }
+
+    .sec { padding: 6rem 6%; position: relative; z-index: 1; }
+    .sec-alt { background: #111119; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+
+    .sec-label { font-size: .72rem; letter-spacing: 2.5px; text-transform: uppercase; color: #6c63ff; margin-bottom: .4rem; }
+    .sec-title { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: bold; letter-spacing: -1px; margin-bottom: .8rem; color: #fff; }
+    .sec-bar { width: 48px; height: 3px; background: linear-gradient(90deg,#6c63ff,#ff6584); border-radius: 2px; margin-bottom: 2rem; }
+    .sec-sub { color: #8888aa; max-width: 540px; font-size: .95rem; margin-bottom: 2.5rem; }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 330px; gap: 4rem; align-items: center; width: 100%; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.3);
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .78rem; color: #a09cf7; margin-bottom: 1.5rem; font-weight: 600;
+    }
+    .bdot { width: 7px; height: 7px; background: #43e97b; border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-title { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -2px; margin-bottom: 1.2rem; color: #fff; }
+    .cp { color: #6c63ff; }
+    .cr { color: #ff6584; }
+    .cg { color: #43e97b; }
+
+    .hero-desc { color: #8888aa; font-size: 1rem; max-width: 500px; margin-bottom: 2rem; line-height: 1.85; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .78rem 1.8rem; border-radius: 50px; font-size: .9rem; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all .25s; font-family: Arial, sans-serif; }
+    .btn-f { background: #6c63ff; color: #fff; }
+    .btn-f:hover { background: #554ee0; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(108,99,255,.4); }
+    .btn-g { border: 1px solid rgba(108,99,255,.3); color: #e8e8f0; background: transparent; }
+    .btn-g:hover { border-color: #6c63ff; color: #a09cf7; }
+
+    .hero-stats { display: flex; gap: 2.5rem; }
+    .snum { font-size: 1.9rem; font-weight: bold; color: #fff; }
+    .snum span { color: #6c63ff; }
+    .slbl { font-size: .75rem; color: #7777aa; }
+
+    .photo-wrap { display: flex; justify-content: center; position: relative; }
+    .photo-frame {
+      width: 295px; height: 355px;
+      background: #13131f; border: 1px solid rgba(108,99,255,.2);
+      border-radius: 20px; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7rem;
+      position: relative;
+    }
+    .photo-frame::before { content:''; position: absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#6c63ff,#ff6584); }
+    .photo-frame img { width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; }
+    .ph-icon { font-size: 3.8rem; opacity:.2; }
+    .ph-hint { font-size: .76rem; color: #555577; text-align: center; padding: 0 1.2rem; line-height: 1.6; }
+    .ph-tag { position: absolute; bottom: 1.1rem; background: rgba(13,13,20,.9); border: 1px solid rgba(108,99,255,.2); padding: .4rem .9rem; border-radius: 9px; font-size: .76rem; color: #9999bb; }
+    .role-badge { position: absolute; top: 1rem; right: -10px; background: #6c63ff; color: #fff; font-size: .68rem; font-weight: bold; padding: .25rem .7rem; border-radius: 50px; transform: rotate(5deg); z-index: 2; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+    .about-text p { color: #8888aa; font-size: .95rem; line-height: 1.9; margin-bottom: .9rem; }
+    .about-text p strong { color: #ccccee; }
+    .blist { margin-top: 1.4rem; display: flex; flex-direction: column; gap: .65rem; }
+    .bi { display: flex; align-items: flex-start; gap: .8rem; font-size: .89rem; color: #ccccee; }
+    .dot { width: 8px; height: 8px; min-width: 8px; background: #6c63ff; border-radius: 50%; margin-top: 6px; }
+    .dp { background: #ff6584; }
+    .dg { background: #43e97b; }
+
+    .icards { display: flex; flex-direction: column; gap: .9rem; }
+    .icard { background: #13131f; border: 1px solid rgba(108,99,255,.15); border-radius: 13px; padding: 1rem 1.3rem; transition: border-color .25s, transform .25s; }
+    .icard:hover { border-color: #6c63ff; transform: translateX(4px); }
+    .ic-lbl { font-size: .67rem; color: #555577; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: .22rem; }
+    .ic-val { font-size: .92rem; font-weight: 600; color: #e8e8f0; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.3rem; }
+    .skcard { background: #13131f; border: 1px solid rgba(108,99,255,.15); border-radius: 17px; padding: 1.5rem; transition: border-color .25s, transform .25s; }
+    .skcard:hover { border-color: #6c63ff; transform: translateY(-4px); }
+    .sk-hd { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.3rem; }
+    .sk-ic { width: 37px; height: 37px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .ip { background: rgba(108,99,255,.15); }
+    .ir { background: rgba(255,101,132,.15); }
+    .it { background: rgba(0,200,210,.15); }
+    .io { background: rgba(255,165,0,.15); }
+    .ig { background: rgba(67,233,123,.15); }
+    .ib { background: rgba(0,170,255,.15); }
+    .sk-nm { font-size: .92rem; font-weight: bold; color: #e8e8f0; }
+
+    .srow { margin-bottom: .95rem; }
+    .srow:last-child { margin-bottom: 0; }
+    .smeta { display: flex; justify-content: space-between; font-size: .81rem; margin-bottom: .32rem; }
+    .slb { color: #ccccee; }
+    .spc { color: #555577; font-size: .74rem; }
+    .barbg { height: 5px; background: rgba(255,255,255,.07); border-radius: 10px; overflow: hidden; }
+    .barfill { height: 100%; border-radius: 10px; }
+    .fp { background: linear-gradient(90deg,#6c63ff,#a09cf7); }
+    .fr { background: linear-gradient(90deg,#ff6584,#ff99aa); }
+    .ft { background: linear-gradient(90deg,#00c9d7,#43e97b); }
+    .fo { background: linear-gradient(90deg,#f7971e,#ffd200); }
+    .fg { background: linear-gradient(90deg,#43e97b,#00bcd4); }
+    .fb { background: linear-gradient(90deg,#00aaff,#6c63ff); }
+
+    /* TOOLS */
+    .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: .85rem; }
+    .tchip { background: #13131f; border: 1px solid rgba(108,99,255,.15); border-radius: 12px; padding: 1rem .8rem; text-align: center; transition: all .25s; cursor: default; }
+    .tchip:hover { border-color: #6c63ff; background: rgba(108,99,255,.08); transform: translateY(-3px); }
+    .tci { font-size: 1.55rem; display: block; margin-bottom: .38rem; }
+    .tcn { font-size: .74rem; color: #9999bb; font-weight: 600; }
+
+    /* TIMELINE */
+    .tl { position: relative; }
+    .tl::before { content:''; position:absolute; left:15px; top:0; bottom:0; width:1px; background:rgba(108,99,255,.2); }
+    .tli { padding-left: 3.1rem; position: relative; margin-bottom: 2.3rem; }
+    .tldot { position:absolute; left:7px; top:4px; width:17px; height:17px; border-radius:50%; border:2px solid #6c63ff; background:#0d0d14; }
+    .tldot.on { background:#6c63ff; }
+    .tldate { font-size:.74rem; color:#6c63ff; font-weight:bold; letter-spacing:.5px; margin-bottom:.32rem; }
+    .tlrole { font-size:.99rem; font-weight:bold; color:#fff; margin-bottom:.18rem; }
+    .tlco { font-size:.84rem; color:#9999bb; margin-bottom:.5rem; }
+    .tldesc { font-size:.86rem; color:#7777aa; line-height:1.8; }
+
+    /* PROJECTS */
+    .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.3rem; }
+    .pcard { background: #13131f; border: 1px solid rgba(108,99,255,.15); border-radius: 17px; overflow: hidden; transition: all .3s; }
+    .pcard:hover { border-color: #6c63ff; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,.5); }
+    .pthumb { height: 145px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; }
+    .pt1 { background: linear-gradient(135deg,#1a1a35,#0e0e25); }
+    .pt2 { background: linear-gradient(135deg,#0d1b2a,#152535); }
+    .pt3 { background: linear-gradient(135deg,#1a0d10,#280e15); }
+    .pt4 { background: linear-gradient(135deg,#0a1a0e,#102015); }
+    .pt5 { background: linear-gradient(135deg,#0d1a1a,#112525); }
+    .pt6 { background: linear-gradient(135deg,#1a1800,#282500); }
+    .pbody { padding: 1.3rem; }
+    .ptags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .65rem; }
+    .ptag { background: rgba(108,99,255,.12); color: #a09cf7; font-size: .68rem; padding: .18rem .6rem; border-radius: 50px; font-weight: bold; }
+    .pname { font-size: .98rem; font-weight: bold; color: #fff; margin-bottom: .42rem; }
+    .pdesc { font-size: .83rem; color: #7777aa; line-height: 1.7; }
+
+    /* CONTACT */
+    .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+    .citems { display: flex; flex-direction: column; gap: 1.3rem; }
+    .crow { display: flex; align-items: flex-start; gap: 1rem; }
+    .cico { width: 41px; height: 41px; min-width: 41px; border-radius: 10px; background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.2); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .clbl { font-size: .69rem; color: #555577; letter-spacing: 1px; text-transform: uppercase; margin-bottom: .18rem; }
+    .cval { font-size: .92rem; color: #e8e8f0; font-weight: 500; }
+
+    .cform { display: flex; flex-direction: column; gap: .85rem; }
+    .flbl { font-size: .74rem; color: #7777aa; display: block; margin-bottom: .28rem; }
+    .finput { width: 100%; background: #13131f; border: 1px solid rgba(108,99,255,.2); color: #e8e8f0; padding: .78rem 1rem; border-radius: 11px; font-family: Arial, sans-serif; font-size: .87rem; outline: none; transition: border-color .25s; }
+    .finput:focus { border-color: #6c63ff; }
+    .finput::placeholder { color: #444466; }
+    textarea.finput { resize: vertical; min-height: 110px; }
+
+    footer { background: #111119; border-top: 1px solid rgba(108,99,255,.15); padding: 2rem 6%; text-align: center; position: relative; z-index: 1; }
+    .fn { font-size: 1.35rem; font-weight: bold; color: #fff; margin-bottom: .3rem; }
+    .fn span { color: #6c63ff; }
+    .fc { font-size: .79rem; color: #444466; }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .photo-frame { width: 240px; height: 290px; margin: 0 auto; }
+      .about-grid, .cgrid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 2rem; }
+      .sec { padding: 4rem 5%; }
+    }
+
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">A<span>.</span>Dominguez</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#skills">Habilidades</a></li>
+    <li><a href="#tools">Herramientas</a></li>
+    <li><a href="#exp">Experiencia</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="sec">
+  <div class="inner hero-grid">
+    <div>
+      <div class="badge"><div class="bdot"></div> Disponible para proyectos</div>
+      <h1 class="hero-title">
+        Hola, soy<br>
+        <span class="cp">Angel Jesús</span><br>
+        <span class="cr">Domínguez</span>
+      </h1>
+      <p class="hero-desc">Ingeniero en Sistemas con experiencia en desarrollo web responsivo, diseño digital, soporte técnico y creación de aplicaciones. Profesionalismo, creatividad y compromiso en cada proyecto.</p>
+      <div class="hero-btns">
+        <a href="#proyectos" class="btn btn-f">Ver proyectos →</a>
+        <a href="#contacto" class="btn btn-g">Contactarme</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="snum">5<span>+</span></div><div class="slbl">Años de estudio</div></div>
+        <div><div class="snum">10<span>+</span></div><div class="slbl">Proyectos realizados</div></div>
+        <div><div class="snum">6<span>+</span></div><div class="slbl">Áreas de experiencia</div></div>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <div class="photo-frame">
+        
+        <div class="ph-icon">📷</div>
+        <img src="img\Foto.jpeg" alt="Angel">
+        <div class="ph-tag">Angel J. Dominguez C.</div>
+      </div>
+      <div class="role-badge">Ing. En Sistemas</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre" class="sec sec-alt">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Sobre mí</p>
+      <h2 class="sec-title">Quién soy</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="about-grid fade">
+      <div class="about-text">
+        <p>Soy <strong>Angel Jesús Domínguez Contreras</strong>, Ingeniero en Sistemas con experiencia práctica en desarrollo web, diseño digital, soporte técnico y atención al cliente. Me definen el profesionalismo, la formalidad y la capacidad de trabajar eficientemente bajo alto flujo de trabajo sin perder calidad.</p>
+        <p>Cuento con experiencia en el <strong>Centro de Cómputo del Instituto Tecnológico de Nogales</strong>, donde realicé reparación y mantenimiento preventivo de equipos, configuración de impresoras, cableado estructurado y servicio a puntos de venta, con trato directo al usuario en todo momento.</p>
+        <p>Desarrollo <strong>páginas web responsivas</strong>, aplicaciones web y videojuegos. Soy creativo, comunicativo y orientado a resultados, con facilidad de palabra y enfoque profesional en cada interacción.</p>
+        <div class="blist">
+          <div class="bi"><div class="dot"></div> Desarrollo de páginas web responsivas y aplicaciones web</div>
+          <div class="bi"><div class="dot dp"></div> Soporte técnico, mantenimiento y cableado estructurado</div>
+          <div class="bi"><div class="dot dg"></div> Trato directo con clientes y facilidad de comunicación</div>
+          <div class="bi"><div class="dot"></div> Rendimiento óptimo en entornos de alto flujo de trabajo</div>
+          <div class="bi"><div class="dot dp"></div> Creatividad, formalidad y profesionalismo en cada entrega</div>
+        </div>
+      </div>
+      <div class="icards">
+        <div class="icard"><div class="ic-lbl">Nombre completo</div><div class="ic-val">Angel Jesús Domínguez Contreras</div></div>
+        <div class="icard"><div class="ic-lbl">Profesión</div><div class="ic-val">Ingeniero en Sistemas</div></div>
+        <div class="icard"><div class="ic-lbl">Experiencia destacada</div><div class="ic-val">Centro de Cómputo – ITN · Desarrollo Web Freelance</div></div>
+        <div class="icard"><div class="ic-lbl">Idiomas</div><div class="ic-val">Español (Nativo) · Inglés (Avanzado)</div></div>
+        <div class="icard"><div class="ic-lbl">Áreas de enfoque</div><div class="ic-val">Web Responsivo · Diseño Digital · Soporte Técnico · Videojuegos</div></div>
+        <div class="icard"><div class="ic-lbl">Disponibilidad</div><div class="ic-val">Freelance y tiempo completo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="skills" class="sec">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Habilidades</p>
+      <h2 class="sec-title">Mis competencias</h2>
+      <div class="sec-bar"></div>
+      <p class="sec-sub">Habilidades técnicas y profesionales que me permiten abordar proyectos de forma integral.</p>
+    </div>
+    <div class="skills-grid fade">
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic ip">💻</div><div class="sk-nm">Desarrollo Web</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Páginas Web Responsivas</span><span class="spc">92%</span></div><div class="barbg"><div class="barfill fp" style="width:92%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">HTML5 / CSS3</span><span class="spc">93%</span></div><div class="barbg"><div class="barfill fp" style="width:93%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">JavaScript</span><span class="spc">82%</span></div><div class="barbg"><div class="barfill fp" style="width:82%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Bootstrap</span><span class="spc">88%</span></div><div class="barbg"><div class="barfill fp" style="width:88%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Aplicaciones Web</span><span class="spc">80%</span></div><div class="barbg"><div class="barfill fp" style="width:80%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Desarrollo de Videojuegos</span><span class="spc">70%</span></div><div class="barbg"><div class="barfill fp" style="width:70%"></div></div></div>
+      </div>
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic ir">🎨</div><div class="sk-nm">Diseño Gráfico</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Photoshop</span><span class="spc">82%</span></div><div class="barbg"><div class="barfill fr" style="width:82%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Illustrator</span><span class="spc">76%</span></div><div class="barbg"><div class="barfill fr" style="width:76%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">CorelDraw</span><span class="spc">79%</span></div><div class="barbg"><div class="barfill fr" style="width:79%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">UI / UX Design</span><span class="spc">72%</span></div><div class="barbg"><div class="barfill fr" style="width:72%"></div></div></div>
+      </div>
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic it">🔧</div><div class="sk-nm">Soporte Técnico</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Reparación de equipos</span><span class="spc">88%</span></div><div class="barbg"><div class="barfill ft" style="width:88%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Mantenimiento preventivo</span><span class="spc">90%</span></div><div class="barbg"><div class="barfill ft" style="width:90%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Cableado estructurado</span><span class="spc">85%</span></div><div class="barbg"><div class="barfill ft" style="width:85%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Configuración de impresoras</span><span class="spc">92%</span></div><div class="barbg"><div class="barfill ft" style="width:92%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Servicio a puntos de venta</span><span class="spc">84%</span></div><div class="barbg"><div class="barfill ft" style="width:84%"></div></div></div>
+      </div>
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic ig">⚙️</div><div class="sk-nm">Ingeniería de Sistemas</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Bases de datos (SQL)</span><span class="spc">85%</span></div><div class="barbg"><div class="barfill fg" style="width:85%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Redes y Sistemas</span><span class="spc">80%</span></div><div class="barbg"><div class="barfill fg" style="width:80%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Ciberseguridad</span><span class="spc">75%</span></div><div class="barbg"><div class="barfill fg" style="width:75%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Análisis de Sistemas</span><span class="spc">88%</span></div><div class="barbg"><div class="barfill fg" style="width:88%"></div></div></div>
+      </div>
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic io">🤝</div><div class="sk-nm">Habilidades Profesionales</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Liderazgo</span><span class="spc">90%</span></div><div class="barbg"><div class="barfill fo" style="width:90%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Trato directo con clientes</span><span class="spc">95%</span></div><div class="barbg"><div class="barfill fo" style="width:95%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Facilidad de habla</span><span class="spc">92%</span></div><div class="barbg"><div class="barfill fo" style="width:92%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Creatividad</span><span class="spc">90%</span></div><div class="barbg"><div class="barfill fo" style="width:90%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Alto flujo de trabajo</span><span class="spc">93%</span></div><div class="barbg"><div class="barfill fo" style="width:93%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Formalidad y Profesionalismo</span><span class="spc">97%</span></div><div class="barbg"><div class="barfill fo" style="width:97%"></div></div></div>
+      </div>
+
+      <div class="skcard">
+        <div class="sk-hd"><div class="sk-ic ib">🌐</div><div class="sk-nm">Idiomas</div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Español</span><span class="spc">100%</span></div><div class="barbg"><div class="barfill fb" style="width:100%"></div></div></div>
+        <div class="srow"><div class="smeta"><span class="slb">Inglés</span><span class="spc">80%</span></div><div class="barbg"><div class="barfill fb" style="width:80%"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section id="tools" class="sec sec-alt">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Herramientas</p>
+      <h2 class="sec-title">Stack tecnológico</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="tgrid fade">
+      <div class="tchip"><span class="tci">🌐</span><div class="tcn">HTML5</div></div>
+      <div class="tchip"><span class="tci">🎨</span><div class="tcn">CSS3</div></div>
+      <div class="tchip"><span class="tci">⚡</span><div class="tcn">JavaScript</div></div>
+      <div class="tchip"><span class="tci">🅱️</span><div class="tcn">Bootstrap</div></div>
+      <div class="tchip"><span class="tci">📱</span><div class="tcn">Responsive</div></div>
+      <div class="tchip"><span class="tci">🗄️</span><div class="tcn">SQL / MySQL</div></div>
+      <div class="tchip"><span class="tci">🐍</span><div class="tcn">Python</div></div>
+      <div class="tchip"><span class="tci">🖼️</span><div class="tcn">Photoshop</div></div>
+      <div class="tchip"><span class="tci">✏️</span><div class="tcn">Illustrator</div></div>
+      <div class="tchip"><span class="tci">🖌️</span><div class="tcn">CorelDraw</div></div>
+      <div class="tchip"><span class="tci">🎮</span><div class="tcn">Videojuegos</div></div>
+      <div class="tchip"><span class="tci">🔌</span><div class="tcn">Cableado</div></div>
+      <div class="tchip"><span class="tci">🖨️</span><div class="tcn">Impresoras</div></div>
+      <div class="tchip"><span class="tci">🛒</span><div class="tcn">Puntos Venta</div></div>
+      <div class="tchip"><span class="tci">🐧</span><div class="tcn">Linux/Kali</div></div>
+      <div class="tchip"><span class="tci">🔗</span><div class="tcn">Git / GitHub</div></div>
+      <div class="tchip"><span class="tci">🔒</span><div class="tcn">Ciberseguridad</div></div>
+      <div class="tchip"><span class="tci">🖥️</span><div class="tcn">VS Code</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="exp" class="sec">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Experiencia</p>
+      <h2 class="sec-title">Trayectoria</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="tl fade">
+
+      <div class="tli">
+        <div class="tldot on"></div>
+        <div class="tldate">2023 – Presente</div>
+        <div class="tlrole">Estudiante de Ingeniería en Sistemas</div>
+        <div class="tlco">Instituto Tecnológico de Nogales</div>
+        <div class="tldesc">Formación integral en desarrollo de software, análisis de sistemas, redes, bases de datos y ciberseguridad. Participación activa en proyectos académicos con aplicación real.</div>
+      </div>
+
+      <div class="tli">
+        <div class="tldot on"></div>
+        <div class="tldate">Experiencia Práctica</div>
+        <div class="tlrole">Soporte Técnico en Centro de Cómputo</div>
+        <div class="tlco">Instituto Tecnológico de Nogales</div>
+        <div class="tldesc">Reparación y mantenimiento preventivo de equipos de cómputo, configuración de impresoras, diagnóstico e instalación de hardware, cableado estructurado y servicio a puntos de venta. Atención directa a usuarios con altos estándares de profesionalismo en entornos de alto flujo de trabajo.</div>
+      </div>
+
+      <div class="tli">
+        <div class="tldot"></div>
+        <div class="tldate">Freelance</div>
+        <div class="tlrole">Desarrollador Web & Diseñador Digital</div>
+        <div class="tlco">Proyectos Independientes</div>
+        <div class="tldesc">Diseño y desarrollo de páginas web responsivas y aplicaciones web con trato directo al cliente desde la propuesta hasta la entrega. Creación de identidades visuales con Photoshop, Illustrator y CorelDraw. Desarrollo de videojuegos como proyecto creativo y tecnológico.</div>
+      </div>
+
+      <div class="tli">
+        <div class="tldot"></div>
+        <div class="tldate">Proyecto Académico</div>
+        <div class="tlrole">Análisis de Penetración y Seguridad Informática</div>
+        <div class="tlco">Lab Académico – Kali Linux / PTES</div>
+        <div class="tldesc">Evaluación de seguridad en servidores dedicados siguiendo la metodología PTES. Uso de Nmap, Metasploit, Nikto e Hydra en entorno controlado y autorizado. Generación de reportes técnicos profesionales.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos" class="sec sec-alt">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Proyectos</p>
+      <h2 class="sec-title">Mi trabajo</h2>
+      <div class="sec-bar"></div>
+      <p class="sec-sub">Una muestra de proyectos y áreas en las que he trabajado, demostrando mis habilidades técnicas y creativas.</p>
+    </div>
+    <div class="pgrid fade">
+
+      <div class="pcard">
+        <div class="pthumb pt1">🌐</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">HTML/CSS</span><span class="ptag">Bootstrap</span><span class="ptag">JS</span></div>
+          <div class="pname">Páginas Web Responsivas</div>
+          <div class="pdesc">Sitios web adaptables a cualquier dispositivo, con diseño limpio y experiencia de usuario fluida. Trato directo con el cliente de principio a fin.</div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pthumb pt2">📱</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">Aplicación Web</span><span class="ptag">JavaScript</span><span class="ptag">SQL</span></div>
+          <div class="pname">Aplicaciones Web a Medida</div>
+          <div class="pdesc">Desarrollo de aplicaciones con bases de datos, interfaces intuitivas y lógica de negocio adaptada a las necesidades del cliente.</div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pthumb pt3">🎮</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">Videojuegos</span><span class="ptag">Creatividad</span><span class="ptag">Diseño</span></div>
+          <div class="pname">Desarrollo de Videojuegos</div>
+          <div class="pdesc">Diseño y programación de videojuegos combinando creatividad, lógica de programación y principios de diseño gráfico.</div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pthumb pt4">🔒</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">Ciberseguridad</span><span class="ptag">Kali Linux</span><span class="ptag">PTES</span></div>
+          <div class="pname">Análisis de Penetración PTES</div>
+          <div class="pdesc">Evaluación de seguridad en servidores universitarios con Nmap, Metasploit y OSINT. Reporte técnico con hallazgos y recomendaciones.</div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pthumb pt5">🖨️</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">Hardware</span><span class="ptag">Soporte</span><span class="ptag">Redes</span></div>
+          <div class="pname">Soporte Técnico Institucional</div>
+          <div class="pdesc">Mantenimiento preventivo, reparación de equipos, cableado estructurado y servicio a puntos de venta en el Centro de Cómputo del ITN.</div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pthumb pt6">🎨</div>
+        <div class="pbody">
+          <div class="ptags"><span class="ptag">Photoshop</span><span class="ptag">Illustrator</span><span class="ptag">CorelDraw</span></div>
+          <div class="pname">Diseño de Identidad Visual</div>
+          <div class="pdesc">Creación de logotipos, paletas de color y materiales gráficos para marcas y proyectos con herramientas profesionales de diseño.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="sec">
+  <div class="inner">
+    <div class="fade">
+      <p class="sec-label">// Contacto</p>
+      <h2 class="sec-title">Hablemos</h2>
+      <div class="sec-bar"></div>
+      <p class="sec-sub">¿Tienes un proyecto o quieres colaborar? Con gusto te atiendo de forma profesional y personalizada.</p>
+    </div>
+    <div class="cgrid fade">
+      <div class="citems">
+        <div class="crow"><div class="cico">📧</div><div><div class="clbl">Email</div><div class="cval">angel@email.com</div></div></div>
+        <div class="crow"><div class="cico">📍</div><div><div class="clbl">Ubicación</div><div class="cval">Nogales, Sonora, México</div></div></div>
+        <div class="crow"><div class="cico">💼</div><div><div class="clbl">LinkedIn</div><div class="cval">linkedin.com/in/angeldominguez</div></div></div>
+        <div class="crow"><div class="cico">🐙</div><div><div class="clbl">GitHub</div><div class="cval">github.com/angeldominguez</div></div></div>
+      </div>
+      <div class="cform">
+        <div><label class="flbl">NOMBRE</label><input type="text" class="finput" placeholder="Tu nombre completo"></div>
+        <div><label class="flbl">EMAIL</label><input type="email" class="finput" placeholder="tu@email.com"></div>
+        <div><label class="flbl">MENSAJE</label><textarea class="finput" placeholder="¿En qué puedo ayudarte?"></textarea></div>
+        <button class="btn btn-f" style="width:fit-content;">Enviar mensaje →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fn">Angel<span>.</span>Dominguez</div>
+  <p class="fc">© 2025 Angel Jesús Domínguez Contreras · Ingeniero en Sistemas · Nogales, Sonora</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
