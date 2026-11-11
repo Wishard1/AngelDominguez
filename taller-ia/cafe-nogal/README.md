@@ -6,7 +6,8 @@ con Python: resumen de ventas, menú, pedidos, el dólar del día (una API real)
 
 ## 1. Instalar y abrir
 
-1. Instala **Python** (python.org, marca la casilla *Add python.exe to PATH*) y **Visual Studio Code**.
+1. Instala **Python** (python.org, marca la casilla *Add python.exe to PATH*), **Visual Studio Code** y, dentro de VS Code,
+   la extensión **Python** de Microsoft ( → busca "Python" → Install).
 2. Descomprime esta carpeta y ábrela en VS Code: *Archivo → Abrir carpeta…*
 3. Abre la terminal: *Terminal → Nueva terminal*
 4. Escribe, una línea a la vez:
