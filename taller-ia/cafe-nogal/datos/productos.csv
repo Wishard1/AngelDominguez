@@ -1,0 +1,11 @@
+producto,categoria,precio,disponible
+Café americano,Bebidas calientes,35,si
+Capuchino,Bebidas calientes,50,si
+Latte de vainilla,Bebidas calientes,55,si
+Chocolate caliente,Bebidas calientes,45,si
+Frappé de moka,Bebidas frías,65,si
+Té chai helado,Bebidas frías,55,no
+Concha,Pan dulce,15,si
+Cuernito de jamón y queso,Comida,45,si
+Pay de queso (rebanada),Postres,48,si
+Pastel de zanahoria (entero),Postres,420,si

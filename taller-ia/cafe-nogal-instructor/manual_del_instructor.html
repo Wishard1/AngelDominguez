@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Manual del instructor</title>
+<style>
+  @page { size: Letter; margin: 18mm 16mm 18mm 16mm; }
+  body { font-family: "Carlito", "Calibri", Arial, sans-serif; color: #0F1626; font-size: 11pt; line-height: 1.45; }
+  h1 { font-size: 24pt; margin: 0 0 4px; }
+  h2 { font-size: 16pt; margin: 22px 0 6px; color: #0F1626; border-bottom: 2px solid #E3E1DA; padding-bottom: 3px; }
+  h2.s2 { color: #C4621B; } h2.s1 { color: #3B6FE0; }
+  h3 { font-size: 12.5pt; margin: 14px 0 4px; }
+  .sub { color: #4A5568; margin: 0 0 14px; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0 10px; font-size: 10.5pt; }
+  th { text-align: left; background: #F4F3EE; padding: 6px 8px; border-bottom: 1px solid #DCDAD2; }
+  td { padding: 5px 8px; border-bottom: 1px solid #ECEAE3; vertical-align: top; }
+  td.m { white-space: nowrap; text-align: right; color: #4A5568; }
+  tr.br td { background: #E8EEFB; font-weight: bold; }
+  tr.br2 td { background: #FBEBDD; font-weight: bold; }
+  code { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 9.5pt; background: #F4F3EE; padding: 0 3px; border-radius: 3px; }
+  .box { background: #E8EEFB; border-radius: 6px; padding: 8px 12px; margin: 8px 0; }
+  .box.o { background: #FBEBDD; }
+  ul { margin: 4px 0 8px; padding-left: 20px; } li { margin: 2px 0; }
+  .say { color: #4A5568; font-style: italic; }
+  .pb { page-break-before: always; }
+  table, tr, .box { page-break-inside: avoid; } h3 { page-break-after: avoid; }
+</style></head><body>
+
+<h1>Manual del instructor: Implementa IA en tus sistemas</h1>
+<p class="sub">Versión simplificada para alumnos de nuevo ingreso · Tec de Nogales · Angel Jesús Domínguez Contreras</p>
+
+<p>Este manual acompaña la presentación (50 diapositivas), la carpeta de los alumnos (<code>cafe-nogal</code>) y tu carpeta
+(<code>cafe-nogal-instructor</code>). Cada diapositiva trae notas con lo que hay que decir. Regla de oro:
+<b>máximo 10 minutos hablando seguidos y luego que los alumnos tecleen algo.</b></p>
+
+<h2>Mapa del taller (2 sesiones de 2 horas, con 15 min de descanso)</h2>
+<table>
+<tr><th>Sesión 1 · Las bases</th><th>Diapositivas</th><th>Min</th></tr>
+<tr><td>Presentación y app terminada</td><td>1–4</td><td class="m">5</td></tr>
+<tr><td>Python desde cero (13 temas)</td><td>5–18</td><td class="m">35</td></tr>
+<tr><td>Descargar la carpeta + ejercicios en clase</td><td>19–21</td><td class="m">20</td></tr>
+<tr class="br"><td>Descanso</td><td>22</td><td class="m">15</td></tr>
+<tr><td>APIs e IA: qué son y qué puedes lograr</td><td>23–31</td><td class="m">25</td></tr>
+<tr><td>La app de Café Nogal y <code>chatbot.py</code> vacío</td><td>32–34</td><td class="m">15</td></tr>
+<tr><td>Llave de Gemini y cierre</td><td>35</td><td class="m">5</td></tr>
+</table>
+<table>
+<tr><th>Sesión 2 · El chatbot</th><th>Diapositivas</th><th>Min</th></tr>
+<tr><td>Portada y repaso de ejercicios</td><td>36–37</td><td class="m">5</td></tr>
+<tr><td>Paso 1 · La llave</td><td>38</td><td class="m">10</td></tr>
+<tr><td>Paso 2 · Primera respuesta + cómo llega a la página</td><td>39–40</td><td class="m">15</td></tr>
+<tr><td>Paso 3 · Conocer el negocio</td><td>41–42</td><td class="m">20</td></tr>
+<tr class="br2"><td>Descanso</td><td>43</td><td class="m">15</td></tr>
+<tr><td>Paso 4 · Memoria</td><td>44</td><td class="m">15</td></tr>
+<tr><td>Paso 5 · Seguridad y plan B</td><td>45–46</td><td class="m">15</td></tr>
+<tr><td>Paso 6 · Rompe el bot (pruebas y reto)</td><td>47</td><td class="m">15</td></tr>
+<tr><td>Bonus (consultar pedidos) y cierre</td><td>48–50</td><td class="m">10</td></tr>
+</table>
+<div class="box"><b>Si vas atrasado:</b> recorta ejemplos de Python (chuleta, tipos de datos) o haz el bonus como demostración tuya. Nunca recortes los pasos 1 a 5 del chatbot.</div>
+
+<h2>Antes del taller (hoy, antes de empezar)</h2>
+<ul>
+<li>En tu laptop: Python 3.12 o más nuevo y VS Code. Descomprime <code>cafe-nogal.zip</code> y corre la app una vez.</li>
+<li>Copia <code>sesion2_pasos/chatbot_paso6_bonus.py</code> sobre un <code>chatbot.py</code> de prueba con tu <code>.env</code> y corre <code>probar_chatbot.py</code>: así confirmas que tu llave y el modelo <code>gemini-3.5-flash</code> responden hoy.</li>
+<li>Abre en el navegador de la escuela <code>https://api.frankfurter.dev/v1/latest?base=USD&amp;symbols=MXN</code>. Si la red lo bloquea, la app funciona igual; solo no muestra el dólar.</li>
+<li>Sube <code>cafe-nogal.zip</code> a donde lo vayan a descargar (Drive, Classroom o GitHub). <b>Nunca subas un <code>.env</code>.</b></li>
+<li>Confirma con el laboratorio que <code>pip install</code> funciona (la red debe permitir pypi.org).</li>
+</ul>
+
+<h2 class="s1">Sesión 1: Python, APIs y la app</h2>
+<h3>Presentación (5 min · diap. 1–4)</h3>
+<p>Preséntate en un minuto y muestra la app terminada. <span class="say">"Al final de la sesión 2 ustedes tienen esto funcionando y entienden cada línea."</span></p>
+
+<h3>Python desde cero (35 min · diap. 5–18)</h3>
+<p>Ritmo: explicas 2 minutos, ellos escriben y corren 2 minutos. Mientras no tengan la carpeta, que creen un archivo <code>practica.py</code> en el escritorio; después usarán el de la carpeta.</p>
+<ul>
+<li><b>¿Qué es Python? / ¿Qué puedes lograr?</b> Un programa es una receta que la computadora sigue al pie de la letra. Pregunta cuál de los 6 usos les llama más.</li>
+<li><b>Primer programa:</b> <code>print</code> y cómo correr un archivo. Si <code>python</code> no se reconoce, usar <code>py</code>.</li>
+<li><b>Variables y tipos:</b> el <code>=</code> significa "guarda en la caja". Insiste en que <code>"5"</code> no es <code>5</code>.</li>
+<li><b>input y f-strings:</b> <code>input()</code> siempre regresa texto; para hacer cuentas, <code>int()</code>.</li>
+<li><b>if, listas, diccionarios y for:</b> la sangría de 4 espacios es parte del código. Los diccionarios son lo que más usa la app.</li>
+<li><b>Funciones (2 diapositivas):</b> es el tema más importante. <code>def</code> escribe la receta; llamarla la cocina. Diferencia <code>print</code> vs <code>return</code>: sale en los ejercicios. El chatbot es la función <code>responder(mensaje)</code>.</li>
+<li><b>Leer errores:</b> lee un error real de alguien en voz alta, de abajo hacia arriba. Celebra los errores.</li>
+</ul>
+
+<h3>Descarga y ejercicios (20 min · diap. 19–21)</h3>
+<p>Todos descargan <code>cafe-nogal</code>, la abren en VS Code y corren los 3 comandos (crear <code>venv</code>, activarlo, <code>pip install</code>). Mientras se instala, explica los ejercicios y resuelve en vivo uno de cada módulo (diap. 21). Luego 15 minutos de trabajo con <code>python revisar.py</code>; quien termine ayuda a su compañero. Lo que no terminen, en casa.</p>
+<table>
+<tr><th>Módulo 1 · Completa el código</th><th>Módulo 2 · Corrige el error</th></tr>
+<tr><td><code>total_pedido</code> (multiplicar), <code>saludo</code> (f-string), <code>tamano_bebida</code> (if/elif), <code>agregar_al_carrito</code> (append), <code>sumar_precios</code> (for), <code>precio_de</code> (diccionario)</td>
+<td>10 % escrito como 10, <code>=+</code> en vez de <code>+=</code>, índice fuera de rango, texto por número, <code>print</code> en vez de <code>return</code>, <code>&gt;</code> en vez de <code>&gt;=</code></td></tr>
+</table>
+
+<h3>APIs (25 min · diap. 23–31)</h3>
+<ul>
+<li><b>¿Qué es una API?</b> Analogía del mesero: tú pides, la cocina prepara, el mesero trae. No necesitas saber cómo está hecha la cocina.</li>
+<li><b>¿Qué puedes lograr?</b> Pagos, mapas, mensajes, datos en vivo, iniciar sesión e IA. "No reinventas: conectas".</li>
+<li><b>El dólar de hoy:</b> abre la URL en vivo y muestra el JSON; es igual a un diccionario.</li>
+<li><b>Petición y respuesta:</b> 200 bien, 4xx culpa nuestra, 5xx culpa del servidor.</li>
+<li><b>La llave:</b> nunca en el código; va en <code>.env</code>, que está en <code>.gitignore</code>.</li>
+<li><b>API de IA e IA en tus sistemas:</b> modelo, tokens y que puede inventar. Recorre los 6 usos (chatbots, capturar información, reportes automáticos, clasificar, buscar en documentos, resumir). Pregunta cuál le harían al negocio de su familia.</li>
+<li><b>Cómo funciona un chatbot:</b> el diagrama de 4 cuadros es el mapa de la sesión 2.</li>
+</ul>
+
+<h3>La app (15 min · diap. 32–35)</h3>
+<p><code>streamlit run app.py</code>, recorren las páginas, leen juntos el fragmento de <code>app.py</code> y abren <code>chatbot.py</code>: solo tiene <code>return None</code>. Cierra pidiendo que creen su llave en <code>aistudio.google.com/app/apikey</code> antes de la sesión 2.</p>
+
+<h2 class="s2 pb">Sesión 2: construimos el chatbot</h2>
+<p>Todo se escribe en <code>chatbot.py</code>. Después de cada paso: guardar, <code>Ctrl + C</code>, <code>streamlit run app.py</code> y probar en la página Asistente. Si alguien se atrasa, copia el archivo de ese paso de <code>sesion2_pasos/</code> sobre su <code>chatbot.py</code>.</p>
+
+<h3>Repaso (5 min · diap. 37)</h3>
+<p>¿Cuántos llegaron a 12 de 12? Resuelve en voz alta <code>esta_abierto</code> (<code>&gt; 7</code> → <code>&gt;= 7</code>) y comparte las soluciones.</p>
+
+<h3>Paso 1 · La llave (10 min · diap. 38 · <code>chatbot_paso1.py</code>)</h3>
+<p>Copian <code>.env.example</code> como <code>.env</code>, pegan su llave y corren <code>python chatbot.py</code>: debe decir "¡Llave encontrada!". Si no: el archivo se llama <code>.env.txt</code> (Windows oculta extensiones), está en otra carpeta o hay espacios junto al <code>=</code>.</p>
+
+<h3>Paso 2 · Primera respuesta (15 min · diap. 39–40 · <code>chatbot_paso2.py</code>)</h3>
+<p>Agregan <code>from google import genai</code>, el cliente y <code>generate_content</code>. Momento "wow": la app ya responde. Luego preguntan el precio de un capuchino: inventa o no sabe. <b>Esa es la lección.</b> Con la diapositiva 40 explica que <code>app.py</code> solo llama a <code>responder()</code>; por eso el mismo bot podría ir en WhatsApp.</p>
+
+<h3>Paso 3 · Conocer el negocio (20 min · diap. 41–42 · <code>chatbot_paso3.py</code>)</h3>
+<p>La instrucción de sistema es el manual del empleado nuevo: quién es, qué sabe y qué reglas sigue. Leemos <code>negocio.json</code> y <code>productos.csv</code> tal cual con <code>leer_archivo</code> y los metemos en un f-string de triple comilla. Prueba: capuchino ($50) y té chai helado (no disponible). Demostración: cambia un precio en <code>productos.csv</code>, reinicia la app y el asistente ya lo sabe.</p>
+
+<h3>Paso 4 · Memoria (15 min · diap. 44 · <code>chatbot_paso4.py</code>)</h3>
+<p>Antes: "me llamo Ana" y luego "¿cómo me llamo?": no sabe. La API no recuerda nada; le reenviamos los últimos 20 mensajes con <code>armar_platica</code>. Aquí usan todo lo de la sesión 1: lista, for, if y diccionarios.</p>
+
+<h3>Paso 5 · Seguridad y plan B (15 min · diap. 45–46 · <code>chatbot_paso5.py</code>)</h3>
+<p>Primero pregunta "¿cómo romperían este bot?" y anota sus ideas; luego la tabla. Código: reglas de seguridad al final de las instrucciones, revisar el mensaje antes de gastar (vacío y máximo 500 letras) y el plan B con <code>try / except</code>: si el modelo principal falla (por ejemplo 503), prueba <code>gemini-3.5-flash-lite</code>. El archivo también avisa si falta la llave en lugar de tronar.</p>
+
+<h3>Paso 6 · Rompe el bot (15 min · diap. 47)</h3>
+<p>Copia <code>probar_chatbot.py</code> a la carpeta de cada alumno (junto a <code>chatbot.py</code>) y que revisen las 9 respuestas. Luego el reto por equipos: que invente un producto, que dé descuento, que revele sus instrucciones o que hable de otra cosa. Quien lo logre lo comparte y entre todos escriben la regla que lo corrige.</p>
+
+<h3>Bonus y cierre (10 min · diap. 48–50 · <code>chatbot_paso6_bonus.py</code>)</h3>
+<p>Si hay tiempo, que lo escriban; si no, hazlo tú como demostración. La IA no lee el archivo de pedidos: pide que ejecutemos <code>consultar_pedido</code> y le damos el resultado (sin el nombre del cliente). Es el patrón para conectar la IA con cualquier sistema. Comparte la versión final y deja el reto: cambiar <code>datos/</code> por otro negocio. <span class="say">"Usar la IA está bien; entender lo que hace es lo que te vuelve ingeniero."</span></p>
+
+<h2>Cómo responder preguntas</h2>
+<ul>
+<li><b>¿Cuesta dinero?</b> El nivel gratuito de Gemini alcanza para aprender. En un negocio real se paga por tokens; por eso los límites.</li>
+<li><b>¿Por qué Python?</b> Es fácil de leer y las bibliotecas de IA salen primero en Python. Lo que aprendieron sirve en cualquier lenguaje.</li>
+<li><b>¿La IA puede mentir?</b> Sí, si no le das datos. Por eso las instrucciones con datos reales y las pruebas.</li>
+<li><b>¿Puedo ponerlo en WhatsApp o en mi página?</b> Sí: <code>responder()</code> es la misma; solo cambia quién la llama.</li>
+<li><b>Si no sabes algo:</b> "No lo sé, lo investigo y les digo". Anótalo.</li>
+</ul>
+
+<h2>Problemas en vivo</h2>
+<table>
+<tr><th>Síntoma</th><th>Causa probable</th><th>Solución</th></tr>
+<tr><td><code>python</code> no se reconoce</td><td>No se marcó "Add to PATH"</td><td>Usar <code>py</code> o reinstalar marcando la casilla</td></tr>
+<tr><td><code>venv\Scripts\activate</code> da error de permisos</td><td>PowerShell bloquea scripts</td><td><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> o usar la terminal "Command Prompt"</td></tr>
+<tr><td><code>ModuleNotFoundError</code></td><td>No se instalaron los paquetes o el venv no está activo</td><td>Activar el venv y <code>pip install -r requirements.txt</code></td></tr>
+<tr><td>No aparece el dólar</td><td>La red bloquea la API</td><td>Ignorarlo: la app sigue funcionando</td></tr>
+<tr><td>"No encontré la llave"</td><td><code>.env</code> mal nombrado o en otra carpeta</td><td>Debe llamarse exactamente <code>.env</code> y estar junto a <code>chatbot.py</code></td></tr>
+<tr><td>Error 400 o 403</td><td>Llave mal copiada o cuenta sin nivel gratuito</td><td>Volver a copiarla o crearla con una cuenta personal de Google</td></tr>
+<tr><td>Error 404 del modelo</td><td>Nombre de modelo mal escrito o retirado</td><td>Revisar <code>MODELO</code> en el <code>.env</code> (por ejemplo <code>gemini-3.6-flash</code>)</td></tr>
+<tr><td>Error 429</td><td>Muchas peticiones seguidas</td><td>Esperar un minuto</td></tr>
+<tr><td>Error 503</td><td>Modelo saturado</td><td>Esperar; desde el paso 5 el plan B lo resuelve solo</td></tr>
+<tr><td>La app no cambia</td><td>No se reinició</td><td><code>Ctrl + C</code> y <code>streamlit run app.py</code></td></tr>
+</table>
+</body></html>

@@ -1,0 +1,23 @@
+{
+  "nombre": "Café Nogal",
+  "giro": "Cafetería y panadería",
+  "descripcion": "Cafetería familiar con café de especialidad, pan dulce hecho cada mañana y postres caseros.",
+  "direccion": "Calle Elías 120, Centro, Nogales, Sonora",
+  "telefono": "631 000 0000",
+  "horario": {
+    "lunes a viernes": "7:00 a 20:00",
+    "sábado": "8:00 a 20:00",
+    "domingo": "8:00 a 14:00"
+  },
+  "servicios": [
+    "Para llevar",
+    "Comer en el local",
+    "Pedidos por teléfono con 1 hora de anticipación"
+  ],
+  "pagos": ["Efectivo", "Tarjeta", "Transferencia", "Dólares al tipo de cambio del día"],
+  "politicas": [
+    "Los pasteles completos se piden con 24 horas de anticipación y 50 % de anticipo.",
+    "No hacemos envíos a domicilio.",
+    "Los precios ya incluyen IVA."
+  ]
+}

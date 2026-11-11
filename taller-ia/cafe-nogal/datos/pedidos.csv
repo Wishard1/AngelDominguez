@@ -1,0 +1,6 @@
+folio,cliente,producto,cantidad,estado,entrega
+P-1001,Ana López,Pastel de zanahoria (entero),1,Listo para recoger,2026-11-10 17:00
+P-1002,Taller Mecánico Ruiz,Café americano,12,En preparación,2026-11-10 09:30
+P-1003,Luis Méndez,Pay de queso (rebanada),4,Pendiente de pago,2026-11-11 12:00
+P-1004,Oficinas del Centro,Concha,30,Entregado,2026-11-09 08:00
+P-1005,Carla Ruiz,Frappé de moka,3,En preparación,2026-11-10 11:00
