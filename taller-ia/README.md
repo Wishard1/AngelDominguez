@@ -9,7 +9,7 @@ Taller para alumnos de nuevo ingreso de Ingeniería en Sistemas Computacionales 
 
 | Archivo | Para quién | Qué es |
 | --- | --- | --- |
-| `Implementa_IA_en_tus_sistemas.pptx` | Instructor | Presentación de las 2 sesiones (53 diapositivas, con notas) |
+| `Implementa_IA_en_tus_sistemas.pptx` | Instructor | Presentación de las 2 sesiones (54 diapositivas, con notas) |
 | `Manual_del_instructor.pdf` | Instructor | Tiempos, qué decir en cada bloque y problemas comunes |
 | `descargas/cafe-nogal.zip` | Alumnos | La app, la hoja de práctica y los ejercicios |
 | `descargas/cafe-nogal-instructor.zip` | Instructor | Soluciones y el `chatbot.py` de cada paso |
