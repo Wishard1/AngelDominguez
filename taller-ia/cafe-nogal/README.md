@@ -13,13 +13,16 @@ con Python: resumen de ventas, menú, pedidos, el dólar del día (una API real)
 4. Escribe, una línea a la vez:
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-En Mac o Linux, la segunda línea es `source venv/bin/activate`.
+En Mac o Linux, la segunda línea es `source .venv/bin/activate`.
+
+Si sale algún error (por ejemplo, que no encuentra `requirements.txt` o que PowerShell no deja activar el entorno),
+revisa la tabla *Errores comunes* al final de este archivo.
 
 La app se abre sola en el navegador (http://localhost:8501). Para detenerla: `Ctrl + C` en la terminal.
 
@@ -51,3 +54,14 @@ Hazlos sin inteligencia artificial: el chiste es entrenar el ojo.
 3. Pega tu llave después de `GEMINI_API_KEY=`
 
 **Nunca** subas el `.env` a GitHub ni compartas tu llave: es como tu contraseña.
+
+## Errores comunes
+
+| Error | Solución |
+| --- | --- |
+| `Could not open requirements file` | Estás en otra carpeta. Escribe `dir`; si ves otra carpeta `cafe-nogal`, haz `cd cafe-nogal` (o abre en VS Code la carpeta que tiene `app.py`) |
+| `streamlit` no se reconoce | Con `(.venv)` activo, corre `pip install -r requirements.txt` |
+| `Activate.ps1` no se puede cargar | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned` y vuelve a activar |
+| `python` no se reconoce | Usa `py`, o reinstala Python marcando *Add python.exe to PATH* |
+| Todo va lento o "acceso denegado" | La carpeta está en OneDrive: muévela a `C:\cafe-nogal` |
+| Ves `(.venv)` sin haberlo activado | Está bien: la extensión de Python lo activó sola |
